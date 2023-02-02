@@ -10,7 +10,7 @@ put these into your dictionary:
 ```json
 {
 "RA*UD": "=retro_untranslator:`%r`"
-"STRO*EBGD": "=retro_untranslator:`%T` → `%r`"
+"STRO*EBGD": "=retro_untranslator:`%r` → `%T`"
 }
 ```
 
@@ -18,7 +18,7 @@ example stroke ⇒ output:
 
 ```
 KWRURPB/RA*UD ⇒ `KWRURPB`
-KWRURPB/STRO*EBGD ⇒ `yes, your Honor` → `KWRURPB`
+KWRURPB/STRO*EBGD ⇒ `KWRURPB` → `yes, your Honor`
 ```
 
 # Configuration
