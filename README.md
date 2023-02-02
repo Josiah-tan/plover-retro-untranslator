@@ -9,8 +9,8 @@ put these into your dictionary:
 
 ```json
 {
-"RA*UD": "=retro_stroke:`%r`"
-"STRO*EBGD": "=retro_stroke:`%T` → `%r`"
+"RA*UD": "=retro_untranslator:`%r`"
+"STRO*EBGD": "=retro_untranslator:`%T` → `%r`"
 }
 ```
 
