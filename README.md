@@ -17,8 +17,8 @@ put these into your dictionary:
 example stroke ⇒ output:
 
 ```
-KWRURPB/RA*UD ⇒ \`KWRURPB\`
-KWRURPB/STRO*EBGD ⇒ \`yes, your Honor\` → \`KWRURPB\`
+KWRURPB/RA*UD ⇒ `KWRURPB`
+KWRURPB/STRO*EBGD ⇒ `yes, your Honor` → `KWRURPB`
 ```
 
 # Configuration
@@ -66,5 +66,5 @@ plover -s plover_plugins install -e .
 
 # Acknowledgments
 
-Sachac's [plover-retro-stroke](https://github.com/sachac/plover_retro_stroke) for motivating the creation of this plugin
-rabbitgrowth's [tapey-tape](https://github.com/rabbitgrowth/plover-tapey-tape) for motivating the format of this plugin
+- Sachac's [plover-retro-stroke](https://github.com/sachac/plover_retro_stroke) for motivating the creation of this plugin
+- rabbitgrowth's [tapey-tape](https://github.com/rabbitgrowth/plover-tapey-tape) for motivating the format of this plugin
