@@ -9,6 +9,8 @@ import re
 def flatten(x: List[List]) -> List:
     return list(itertools.chain.from_iterable(x))
 
+SHOW_WHITESPACE = str.maketrans({'\n': '\\n', '\r': '\\r', '\t': '\\t'})
+
 historical_translations = []
 
 def expandFormatting(format_string, items): 
@@ -18,6 +20,10 @@ def expandFormatting(format_string, items):
         width = 0 if not width else int(width)
         return items.get(letter, '').ljust(width)
     return re.sub(r'%(\d*)(.)', replace, format_string)
+
+def formatDefined(raw_string):
+    processed_string = re.sub("([{}])", r"\\\1", raw_string)
+    return processed_string
 
 def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
     formatting = cmdline
@@ -36,8 +42,10 @@ def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
             historical_translations = [affected_english] + historical_translations 
         else:
             historical_translations = [affected_english]
+        defined = formatDefined(' '.join(translation.english.translate(SHOW_WHITESPACE) for translation in historical_translations))
         translated = ''.join(reversed(list(RetroFormatter(historical_translations).iter_last_fragments())))
     else:
+        defined = ""
         translated = ""
     
     affected_strokes = flatten([x.strokes for x in affected_translations])
@@ -48,6 +56,7 @@ def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
     items = {
         'r': raw_steno,
         'T': translated,
+        'D': defined,
         '%': '%'}
     formatted_result = expandFormatting(formatting, items)
     my_trans = Translation(affected_strokes + [stroke], formatted_result)

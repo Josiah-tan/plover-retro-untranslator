@@ -1,6 +1,6 @@
 # plover-retro-untranslator
 
-Converts the last X translations to a specified format consisting of raw steno and/or a translation 
+Converts the last X translations to a specified format consisting of raw steno and/or a translation and/or definition
 
 
 # Examples
@@ -11,6 +11,7 @@ put these into your dictionary:
 {
 "RA*UD": "=retro_untranslator:`%r`"
 "STRO*EBGD": "=retro_untranslator:`%r` → `%T`"
+"TKAO*EFPBD": "=retro_untranslator:`%r` → `%D`"
 }
 ```
 
@@ -19,17 +20,19 @@ example stroke ⇒ output:
 ```
 KWRURPB/RA*UD ⇒ `KWRURPB`
 KWRURPB/STRO*EBGD ⇒ `KWRURPB` → `yes, your Honor`
+KWRURPB/TKAO*EFPBD ⇒ `KWRURPB` → `yes{,}your Honor`
 ```
 
 # Configuration
 
 (literally the same thing as tapey-tape)
 
-| Code | Item           | Example                                 |
-|:-----|:---------------|:----------------------------------------|
-| `%r` | raw steno      | `KWRURPB`                               |
-| `%T` | translation    | `Yes, your Honor`                       |
-| `%%` | an actual `%`  | `%`                                     |
+| Code | Item          | Example           |
+|:-----|:--------------|:------------------|
+| `%r` | raw steno     | `KWRURPB`         |
+| `%D` | definition    | yes{,}your Honor  |
+| `%T` | translation   | `Yes, your Honor` |
+| `%%` | an actual `%` | `%`               |
 
 
 
