@@ -1,6 +1,6 @@
 # plover-retro-untranslator
 
-Converts the last X translations to a specified format consisting of raw steno and/or a translation and/or definition
+Converts the last X translations to a specified format consisting of raw steno and/or a translation and/or definition [video](https://www.youtube.com/watch?v=pLYZl5_l0qg)
 
 
 # Examples
