@@ -25,6 +25,12 @@ def formatDefined(raw_string):
     processed_string = re.sub("([{}])", r"\\\1", raw_string)
     return processed_string
 
+def extract_number_key(stroke):
+    return_string = stroke.rtfcre
+    if stroke.has_digit():
+        return_string = "#" + (stroke - Stroke("#")).rtfcre
+    return return_string;
+
 def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
     formatting = cmdline
     all_translations = translator.get_state().translations
@@ -35,6 +41,11 @@ def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
         )
     ))
     affected_translations = all_translations[-(affected_translation_cnt + 1):]
+    affected_strokes = flatten([x.strokes for x in affected_translations])
+    raw_steno = "/".join([extract_number_key(x) for x in reversed(list(itertools.dropwhile(
+        lambda x: x == stroke,
+        reversed(affected_strokes)
+    )))])
     if len(affected_translations) >= 1:
         affected_english = affected_translations[0]
         global historical_translations
@@ -42,17 +53,16 @@ def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
             historical_translations = [affected_english] + historical_translations 
         else:
             historical_translations = [affected_english]
-        defined = formatDefined(' '.join(translation.english.translate(SHOW_WHITESPACE) for translation in historical_translations))
-        translated = ''.join(reversed(list(RetroFormatter(historical_translations).iter_last_fragments())))
+        try:
+            defined = formatDefined(' '.join(translation.english.translate(SHOW_WHITESPACE) for translation in historical_translations))
+            translated = ''.join(reversed(list(RetroFormatter(historical_translations).iter_last_fragments())))
+        except:
+            defined = translated = raw_steno
+            print("no available translation")
     else:
         defined = ""
         translated = ""
     
-    affected_strokes = flatten([x.strokes for x in affected_translations])
-    raw_steno = "/".join([x.rtfcre for x in reversed(list(itertools.dropwhile(
-        lambda x: x == stroke,
-        reversed(affected_strokes)
-    )))])
     items = {
         'r': raw_steno,
         'T': translated,
