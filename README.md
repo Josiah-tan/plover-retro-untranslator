@@ -1,6 +1,13 @@
 # plover-retro-untranslator
 
-Converts the last X translations to a specified format consisting of raw steno and/or a translation and/or definition ([video](https://www.youtube.com/watch?v=pLYZl5_l0qg))
+- Converts the last X translations to a specified format consisting of any of the following: 
+    - raw steno 
+    - translation 
+    - definition 
+    - american translation
+    - british translation
+
+([video](https://www.youtube.com/watch?v=pLYZl5_l0qg))
 
 
 # Examples
@@ -9,9 +16,12 @@ put these into your dictionary:
 
 ```json
 {
-"RA*UD": "=retro_untranslator:`%r`"
-"STRO*EBGD": "=retro_untranslator:`%r` → `%T`"
-"TKAO*EFPBD": "=retro_untranslator:`%r` → `%D`"
+"RA*UD": "=retro_untranslator:`%r`",
+"STRO*EBGD": "=retro_untranslator:`%r` → `%T`",
+"TKAO*EFPBD": "=retro_untranslator:`%r` → `%D`",
+"-P": "=retro_untranslator:%G",
+"SPH-P": "=retro_untranslator:%A",
+"PWR-P: "=retro_untranslator:%B",
 }
 ```
 
@@ -27,12 +37,15 @@ KWRURPB/TKAO*EFPBD ⇒ `KWRURPB` → `yes{,}your Honor`
 
 (literally the same thing as tapey-tape)
 
-| Code | Item          | Example           |
-|:-----|:--------------|:------------------|
-| `%r` | raw steno     | `KWRURPB`         |
-| `%D` | definition    | yes{,}your Honor  |
-| `%T` | translation   | `Yes, your Honor` |
-| `%%` | an actual `%` | `%`               |
+| Code | Item                 | Example             |
+|:-----|:---------------------|:--------------------|
+| `%r` | raw steno            | `KWRURPB`           |
+| `%D` | definition           | yes{,}your Honor    |
+| `%T` | translation          | `Yes, your Honor`   |
+| `%A` | american translation | customize           |
+| `%B` | british translation  | customise           |
+| `%G` | toggle translation   | customise/customize |
+| `%%` | an actual `%`        | `%`                 |
 
 
 
