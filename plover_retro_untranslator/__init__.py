@@ -5,6 +5,7 @@ import itertools
 from plover.translation import Translator, Stroke, Translation
 from plover.formatting import RetroFormatter
 import re
+from plover_retro_untranslator.spelling_converter import SpellingConverter
 
 def flatten(x: List[List]) -> List:
     return list(itertools.chain.from_iterable(x))
@@ -13,12 +14,14 @@ SHOW_WHITESPACE = str.maketrans({'\n': '\\n', '\r': '\\r', '\t': '\\t'})
 
 historical_translations = []
 
+spelling_converter = SpellingConverter()
+
 def expandFormatting(format_string, items): 
     # thanks for this rabbit growth!
     def replace(matchobj):
         width, letter = matchobj.groups()
         width = 0 if not width else int(width)
-        return items.get(letter, '').ljust(width)
+        return items.get(letter, '')().ljust(width)
     return re.sub(r'%(\d*)(.)', replace, format_string)
 
 def formatDefined(raw_string):
@@ -64,10 +67,13 @@ def retro_untranslator(translator: Translator, stroke: Stroke, cmdline: str):
         translated = ""
     
     items = {
-        'r': raw_steno,
-        'T': translated,
-        'D': defined,
-        '%': '%'}
+        'r': lambda: raw_steno,
+        'T': lambda: translated,
+        'D': lambda: defined,
+        'A': lambda: spelling_converter.britishToAmerican(translated),
+        'B': lambda: spelling_converter.americanToBritish(translated),
+        'G': lambda: spelling_converter.toggle(translated),
+        '%': lambda: '%'}
     formatted_result = expandFormatting(formatting, items)
     my_trans = Translation(affected_strokes + [stroke], formatted_result)
     my_trans.replaced = affected_translations
